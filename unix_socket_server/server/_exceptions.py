@@ -1,0 +1,6 @@
+
+
+
+class UnableToHandleInput(Exception):...
+
+class InputIsNotReadable(Exception):...
