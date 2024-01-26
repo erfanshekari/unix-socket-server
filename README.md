@@ -1,11 +1,15 @@
 # Unix Socket Server
-A single-threaded server for serving in-memory files via Unix sockets. No Requirements. just clone this repo and copy ```unix_socket_server``` module to the root of your project.
+A single-threaded server for serving in-memory files via Unix sockets. No Requirements. just clone this repo and copy ```unix_socket_server``` module to the root of your project or install package using pip:
+```bash
+pip install unix-socket-server
+```
 
 ## Problem
 Imagine that we have a in-memory file in our Python application and we want to share this file with other apps or tools on the same host without writing it to disk.
 
 ## Solution
 A lightweight solution to this problem is to use Unix socket communication for file sharing.
+
 
 ## Examples:
 
