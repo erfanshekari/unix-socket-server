@@ -6,10 +6,7 @@ from .handlers import (
     HTTPServerHandler,
     StreamServerHandler
 )
-from ._exceptions import (
-    UnableToHandleInput,
-    InputIsNotReadable
-)
+from .response import Response
 
 class UnixSocketServer:
     class UnixSocketServer(UnixStreamServer):
@@ -23,17 +20,13 @@ class UnixSocketServer:
             handler: UnixSocketServerHandlerTypes = UnixSocketServerHandlerTypes.stream,
     ) -> None:
         self.input = input
-        if not type(self.input) is bytes:
-            if not hasattr(self.input, 'read') or not hasattr(self.input, 'readable'):
-                raise UnableToHandleInput()
-            if not self.input.readable():
-                raise InputIsNotReadable()
+        
+        RESPONSE = Response(input)
 
-
-        if handler == UnixSocketServerHandlerTypes.http:
-            self.handler = type('UnixSocketServerHTTPHandler', (HTTPServerHandler, ), dict({'RESPONSE': self.input}))
+        if handler == UnixSocketServerHandlerTypes.http or handler == UnixSocketServerHandlerTypes.http.value:
+            self.handler = type('UnixSocketServerHTTPHandler', (HTTPServerHandler, ), dict({'RESPONSE': RESPONSE}))
         else:
-            self.handler = type('UnixSocketServerStreamHandler', (StreamServerHandler, ), dict({'RESPONSE': self.input}))
+            self.handler = type('UnixSocketServerStreamHandler', (StreamServerHandler, ), dict({'RESPONSE': RESPONSE}))
 
     def listen(self, path: str) -> None:
         self.path = path
