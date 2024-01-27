@@ -1,11 +1,11 @@
-import setuptools
+from setuptools import setup, find_packages
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-setuptools.setup(
+setup(
     name="unix-socket-server",
-    version="0.0.1",
+    version="0.0.2",
     author="Erfan Shekari",
     author_email="erfan.dp.co@gmail.com",
     description="A single-threaded server for serving in-memory files via Unix sockets.",
@@ -20,9 +20,11 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "."},
     python_requires=">=3.0",
-    packages=["unix_socket_server"],
+    packages=find_packages(
+        where='.',
+        include=['unix_socket_server*'],
+    ),
     include_package_data=True,
     install_requires=[],
 )
