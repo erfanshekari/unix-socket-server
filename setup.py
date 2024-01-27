@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="unix-socket-server",
-    version="0.0.2",
+    version="0.0.3",
     author="Erfan Shekari",
     author_email="erfan.dp.co@gmail.com",
     description="A single-threaded server for serving in-memory files via Unix sockets.",

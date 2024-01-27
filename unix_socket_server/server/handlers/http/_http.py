@@ -2,7 +2,6 @@ import logging
 from http.server import BaseHTTPRequestHandler
 from unix_socket_server.server.response import Response
 
-
 class HTTPServerHandler(BaseHTTPRequestHandler):
     RESPONSE : Response
 
@@ -18,7 +17,6 @@ class HTTPServerHandler(BaseHTTPRequestHandler):
             if self.RESPONSE.is_chunked:
                 for chunk in self.RESPONSE.chunked_response:
                     self.write(chunk)
-                self.write('')
             else:
                 self.write(self.RESPONSE.response)
         except Exception as exc:
