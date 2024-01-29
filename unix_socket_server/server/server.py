@@ -9,7 +9,10 @@ from .handlers import (
 from .response import Response
 
 class UnixSocketServer:
-    class UnixSocketServer(UnixStreamServer):...
+    class UnixSocketServer(UnixStreamServer):
+        def get_request(self):
+            request, _ = super().get_request()
+            return (request, ["local", 0])
         
     def __init__(
             self, 
