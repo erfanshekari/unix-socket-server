@@ -13,5 +13,8 @@ class StreamServerHandler(BaseRequestHandler):
                 self.request.sendall(self.RESPONSE.response)
         except Exception as exc:
             logging.error(exc)
-        self.request.shutdown(socket.SHUT_WR)
-        self.request.close()
+        try:
+            self.request.shutdown(socket.SHUT_WR)
+            self.request.close()
+        except OSError as exc:
+            logging.error(exc)

@@ -1,4 +1,5 @@
 import logging
+from posixpath import basename
 from http.server import BaseHTTPRequestHandler
 from unix_socket_server.server.response import Response
 
@@ -7,9 +8,11 @@ class HTTPServerHandler(BaseHTTPRequestHandler):
 
     protocol_version = 'HTTP/1.1'
     def do_GET(self):
+        print(dir(self), dir(self.server))
         self.send_response(200)
         self.send_header('Content-type','application/octet-stream')
         self.send_header('Content-Length', self.RESPONSE.total_len)
+        self.send_header('Content-Disposition', f'attachment; filename="{basename(self.server.server_address)}"')
         if self.RESPONSE.is_chunked:
             self.send_header('Accept-Ranges', 'bytes')
         self.end_headers()
